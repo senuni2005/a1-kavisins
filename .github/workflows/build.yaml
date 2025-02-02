@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: ${{env.JAVA_ENV_VERSION}}
-          distribution: 'adopt'
+          distribution: 'adoptopenjdk'  # Changed from 'adopt' to 'adoptopenjdk'
           cache: 'maven'
 
       # Building the turnkey artefact
