@@ -1,69 +1,55 @@
 package ca.mcmaster.se2aa4.mazerunner;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+class GenerateMaze {
+    private final int[][] maze;
+    private int entry_row, entry_col;
+    private int exit_row, exit_col;
 
-// Generates and initializes the Maze Runner game.
+    public GenerateMaze(String filePath) throws Exception {
+        List<String> lines = Files.readAllLines(Paths.get(filePath));
+        maze = new int[lines.size()][lines.get(0).length()];
+        entry_row = entry_col = exit_row = exit_col = -1;
 
-public class GenerateMaze {
-    private static final Logger logger = LogManager.getLogger();
+        for (int row = 0; row < lines.size(); row++) {
+            for (int col = 0; col < lines.get(row).length(); col++) {
+                maze[row][col] = (lines.get(row).charAt(col) == '#') ? 1 : 0;
+            }
 
-    public String[][] generateMazeFromFile(String filePath) throws IOException {
-        logger.info("Reading maze from file: " + filePath);
-
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line;
-        int rows = 0;
-
-        while ((line = reader.readLine()) != null) {
-            rows++;
+            if (entry_row == -1 && maze[row][0] == 0) {
+                entry_row = row;
+                entry_col = 0;
+            }
+            if (exit_row == -1 && maze[row][lines.get(row).length() - 1] == 0) {
+                exit_row = row;
+                exit_col = lines.get(row).length() - 1;
+            }
         }
-        reader.close();
 
-        reader = new BufferedReader(new FileReader(filePath));
-        String[][] maze = new String[rows][];
-        int currentRow = 0;
-
-        while ((line = reader.readLine()) != null) {
-            maze[currentRow] = line.split("");
-            currentRow++;
+        if (entry_row == -1 || exit_row == -1) {
+            throw new Exception("Entry or Exit not found in maze.");
         }
-        reader.close();
+    }
 
-        logger.info("Maze successfully generated.");
+    protected int[][] getMaze() {
         return maze;
     }
 
-    public int[] getStartPosition(String[][] maze) {
-        logger.info("Finding starting position in the maze.");
+    protected int getEntryRow() {
+        return entry_row;
+    }
 
-        for (int col = 0; col < maze[0].length; col++) {
-            if (maze[0][col].equals(" ")) {
-                logger.info("Start position at top border: [0, " + col + "]");
-                return new int[]{0, col};
-            }
-        }
-        for (int col = 0; col < maze[maze.length - 1].length; col++) {
-            if (maze[maze.length - 1][col].equals(" ")) {
-                logger.info("Start position at bottom border: [" + (maze.length - 1) + ", " + col + "]");
-                return new int[]{maze.length - 1, col};
-            }
-        }
-        for (int row = 0; row < maze.length; row++) {
-            if (maze[row][0].equals(" ")) {
-                logger.info("Start position at left border: [" + row + ", 0]");
-                return new int[]{row, 0};
-            }
-        }
-        for (int row = 0; row < maze.length; row++) {
-            if (maze[row][maze[row].length - 1].equals(" ")) {
-                logger.info("Start position at right border: [" + row + ", " + (maze[row].length - 1) + "]");
-                return new int[]{row, maze[row].length - 1};
-            }
-        }
-        return null;
+    protected int getEntryCol() {
+        return entry_col;
+    }
+
+    protected int getExitRow() {
+        return exit_row;
+    }
+
+    protected int getExitCol() {
+        return exit_col;
     }
 }
