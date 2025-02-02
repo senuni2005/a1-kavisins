@@ -1,6 +1,9 @@
 package ca.mcmaster.se2aa4.mazerunner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 class RightHandRuleSolver implements MazeSolver {
+    private static final Logger logger = LogManager.getLogger(RightHandRuleSolver.class);
     private static final String[] DIRECTIONS = {"N", "E", "S", "W"};
     private int direction;
     private int current_row, current_col;
@@ -17,6 +20,8 @@ class RightHandRuleSolver implements MazeSolver {
         this.path = new StringBuilder();
         InitializePlayer initialize_player = new InitializePlayer(maze);
         this.direction = initialize_player.setInitialDirection();
+
+        logger.info("RightHandRuleSolver initialized: Starting at (" + current_row + ", " + current_col + ") facing " + DIRECTIONS[direction]);
     }
 
     private boolean canMove(String move) {
@@ -43,20 +48,25 @@ class RightHandRuleSolver implements MazeSolver {
             current_col--;
         }
         path.append('F');
+        logger.debug("Moved forward to (" + current_row + ", " + current_col + ")");
     }
 
     private void turnRight() {
         direction = (direction + 1) % 4;
         path.append('R');
+        logger.debug("Turned right, now facing " + DIRECTIONS[direction]);
     }
 
     private void turnLeft() {
         direction = (direction + 3) % 4;
         path.append('L');
+        logger.debug("Turned left, now facing " + DIRECTIONS[direction]);
     }
 
     @Override
     public String solveMaze() {
+        logger.info("Starting maze solving...");
+
         while (!(current_row == exit_row && current_col == exit_col)) {
             int right_direction = (direction + 1) % 4;
             if (canMove(DIRECTIONS[right_direction])) {
@@ -68,6 +78,8 @@ class RightHandRuleSolver implements MazeSolver {
                 turnLeft();
             }
         }
+
+        logger.info("Maze solved. Path taken: " + path.toString());
         return path.toString();
     }
 }

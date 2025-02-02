@@ -37,6 +37,7 @@ public class Main {
                     }
                 } else {
                     MazeSolver maze_solver = new RightHandRuleSolver(maze); // Computer algorithm solution
+                    logger.info("No user path provided. Using algorithm to solve maze.");
                     String path = maze_solver.solveMaze();
 
                     ResultFormatter formatter = new ResultFormatter();
