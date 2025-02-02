@@ -11,7 +11,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-// MVP for Maze Runner: Handles single commands for maze movements with -i <file path> support.
+// MVP for Maze Runner: Handle single commands for maze movements with -i <file path> support.
 
 public class Main {
     private static final Logger logger = LogManager.getLogger();
