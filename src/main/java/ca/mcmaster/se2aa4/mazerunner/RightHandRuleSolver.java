@@ -1,6 +1,6 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-class RightHandRuleSolver {
+class RightHandRuleSolver implements MazeSolver {
     private static final String[] DIRECTIONS = {"N", "E", "S", "W"};
     private int direction;
     private int current_row, current_col;
@@ -15,7 +15,8 @@ class RightHandRuleSolver {
         this.exit_col = maze.getExitCol();
         this.maze = maze.getMaze();
         this.path = new StringBuilder();
-        this.direction = 1;
+        InitializePlayer initialize_player = new InitializePlayer(maze);
+        this.direction = initialize_player.setInitialDirection();
     }
 
     private boolean canMove(String move) {
@@ -54,6 +55,7 @@ class RightHandRuleSolver {
         path.append('L');
     }
 
+    @Override
     public String solveMaze() {
         while (!(current_row == exit_row && current_col == exit_col)) {
             int right_direction = (direction + 1) % 4;
