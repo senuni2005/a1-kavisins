@@ -1,4 +1,8 @@
 # Assignment A1 - Maze Runner
+- Senuni Kavisinghe
+- Winter 2025: February 2, 2025
+- Software Engineering II, McMaster Univeristy
+- SFWRENG 2AA4: Software Design I - Introduction to Software Development
 
 - Original author: Dr. [Sébastien Mosser](https://mosser.github.io)
 - Version: 2024.01
