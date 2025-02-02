@@ -2,7 +2,6 @@ package ca.mcmaster.se2aa4.mazerunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-// Checks user path input to see if correct
 class UserPathVerifier {
     private static final Logger logger = LogManager.getLogger(UserPathVerifier.class);
     private final GenerateMaze maze;
