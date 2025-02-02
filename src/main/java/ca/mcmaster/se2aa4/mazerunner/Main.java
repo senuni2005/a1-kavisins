@@ -24,10 +24,12 @@ public class Main {
                 logger.info("Maze file path provided: " + maze_file_path);
                 GenerateMaze maze = new GenerateMaze(maze_file_path);
                 RightHandRuleSolver maze_solver = new RightHandRuleSolver(maze); // Computer algorithm solution
-                logger.info("No user path provided. Using algorithm to solve maze.");
                 String path = maze_solver.solveMaze();
-                System.out.println(path);
 
+                ResultFormatter formatter = new ResultFormatter();
+                String factorized_result = formatter.factorizePath(path);
+                System.out.println(factorized_result);
+                
             } else {
                 throw new ParseException("-i <Maze file path> is required.");
             }
