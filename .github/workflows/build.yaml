@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: ${{env.JAVA_ENV_VERSION}}
-          distribution: 'adoptopenjdk'
+          distribution: 'temurin'
 
       - name: Create executable jar with Maven
         run: mvn clean package -DskipTests
