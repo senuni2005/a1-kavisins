@@ -2,6 +2,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+// Implementation of the right hand rule algorithm to solve the maze
 class RightHandRuleSolver implements MazeSolver {
     private static final Logger logger = LogManager.getLogger(RightHandRuleSolver.class);
     private static final String[] DIRECTIONS = {"N", "E", "S", "W"};
@@ -24,6 +25,7 @@ class RightHandRuleSolver implements MazeSolver {
         logger.info("RightHandRuleSolver initialized: Starting at (" + current_row + ", " + current_col + ") facing " + DIRECTIONS[direction]);
     }
 
+    // Sees if a move can be made
     private boolean canMove(String move) {
         if (move.equals("N")) {
             return current_row > 0 && maze[current_row - 1][current_col] == 0;
@@ -37,6 +39,7 @@ class RightHandRuleSolver implements MazeSolver {
         return false;
     }
 
+    // Moves forward
     private void moveForward() {
         if (DIRECTIONS[direction].equals("N")) {
             current_row--;
@@ -51,18 +54,21 @@ class RightHandRuleSolver implements MazeSolver {
         logger.debug("Moved forward to (" + current_row + ", " + current_col + ")");
     }
 
+    // Turns right
     private void turnRight() {
         direction = (direction + 1) % 4;
         path.append('R');
         logger.debug("Turned right, now facing " + DIRECTIONS[direction]);
     }
 
+    // Turns left
     private void turnLeft() {
         direction = (direction + 3) % 4;
         path.append('L');
         logger.debug("Turned left, now facing " + DIRECTIONS[direction]);
     }
 
+    // Right hand rule algorithm
     @Override
     public String solveMaze() {
         logger.info("Starting maze solving...");

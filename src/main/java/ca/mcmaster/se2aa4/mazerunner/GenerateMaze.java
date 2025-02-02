@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+// Convert maze into 2D int array for easier comparison and locate entry and exit index
 class GenerateMaze {
     private static final Logger logger = LogManager.getLogger(GenerateMaze.class);
     private final int[][] maze;
@@ -23,12 +24,13 @@ class GenerateMaze {
                 maze[row][col] = (lines.get(row).charAt(col) == '#') ? 1 : 0;
             }
 
+            // Find entry index
             if (entry_row == -1 && maze[row][0] == 0) {
                 entry_row = row;
                 entry_col = 0;
                 logger.debug("Entry found at: (" + entry_row + ", " + entry_col + ")");
             }
-
+            // Find exit index
             if (exit_row == -1 && maze[row][lines.get(row).length() - 1] == 0) {
                 exit_row = row;
                 exit_col = lines.get(row).length() - 1;

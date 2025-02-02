@@ -28,6 +28,6 @@ class ResultFormatter {
         if (count > 1) {
             factorizedPath.append(count);
         }
-        factorizedPath.append(move).append(" ");
+        factorizedPath.append(move).append(" "); // Adding space after each segment
     }
 }
