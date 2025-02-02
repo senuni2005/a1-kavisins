@@ -13,7 +13,6 @@ public class Main {
     public static void main(String[] args) {
         Options options = new Options();
         options.addOption("i", true, "Maze file path");
-        options.addOption("p", true, "Maze path to verify");
 
         CommandLineParser parser = new DefaultParser();
         try {
