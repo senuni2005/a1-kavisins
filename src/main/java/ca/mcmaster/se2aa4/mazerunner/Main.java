@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
         Options options = new Options();
         options.addOption("i", true, "Maze file path");
+        options.addOption("p", true, "Maze path to verify");
 
         CommandLineParser parser = new DefaultParser();
         try {
@@ -23,13 +24,26 @@ public class Main {
                 String maze_file_path = command_line.getOptionValue("i");
                 logger.info("Maze file path provided: " + maze_file_path);
                 GenerateMaze maze = new GenerateMaze(maze_file_path);
-                RightHandRuleSolver maze_solver = new RightHandRuleSolver(maze); // Computer algorithm solution
-                String path = maze_solver.solveMaze();
 
-                ResultFormatter formatter = new ResultFormatter();
-                String factorized_result = formatter.factorizePath(path);
-                System.out.println(factorized_result);
-                
+                if (command_line.hasOption("p")) {
+                    String user_path = command_line.getOptionValue("p");
+                    logger.info("User path provided for verification.");
+                    UserPathVerifier verifier = new UserPathVerifier(maze);
+                    boolean is_correct = verifier.verifyPath(user_path); // User path verification
+                    if (is_correct) {
+                        System.out.println("correct path");
+                    } else {
+                        System.out.println("incorrect path");
+                    }
+                } else {
+                    RightHandRuleSolver maze_solver = new RightHandRuleSolver(maze); // Computer algorithm solution
+                    logger.info("No user path provided. Using algorithm to solve maze.");
+                    String path = maze_solver.solveMaze();
+
+                    ResultFormatter formatter = new ResultFormatter();
+                    String factorized_result = formatter.factorizePath(path);
+                    System.out.println(factorized_result);
+                }
             } else {
                 throw new ParseException("-i <Maze file path> is required.");
             }
