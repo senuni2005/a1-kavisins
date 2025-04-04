@@ -3,18 +3,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 // Convert maze into 2D int array for easier comparison and locate entry and exit index
 public class GenerateMaze {
-    private static final Logger logger = LogManager.getLogger(GenerateMaze.class);
-    private final int[][] maze;
+    private static volatile GenerateMaze instance;
+    private int[][] maze;
     private int entry_row, entry_col;
     private int exit_row, exit_col;
 
-    public GenerateMaze(String filePath) throws Exception {
-        logger.info("Starting maze generation from file: " + filePath);
+    private GenerateMaze(String filePath) throws Exception {
+        // Private constructor prevents instantiation
         List<String> lines = Files.readAllLines(Paths.get(filePath));
         maze = new int[lines.size()][lines.get(0).length()];
         entry_row = entry_col = exit_row = exit_col = -1;
@@ -28,22 +25,28 @@ public class GenerateMaze {
             if (entry_row == -1 && maze[row][0] == 0) {
                 entry_row = row;
                 entry_col = 0;
-                logger.debug("Entry found at: (" + entry_row + ", " + entry_col + ")");
             }
             // Find exit index
             if (exit_row == -1 && maze[row][lines.get(row).length() - 1] == 0) {
                 exit_row = row;
                 exit_col = lines.get(row).length() - 1;
-                logger.debug("Exit found at: (" + exit_row + ", " + exit_col + ")");
             }
         }
 
         if (entry_row == -1 || exit_row == -1) {
-            logger.error("Entry or Exit not found in maze.");
             throw new Exception("Entry or Exit not found in maze.");
         }
+    }
 
-        logger.info("Maze generation completed.");
+    public static GenerateMaze getInstance(String filePath) throws Exception {
+        if (instance == null) {
+            synchronized (GenerateMaze.class) {
+                if (instance == null) {
+                    instance = new GenerateMaze(filePath);
+                }
+            }        
+        }
+        return instance;
     }
 
     public int[][] getMaze() {

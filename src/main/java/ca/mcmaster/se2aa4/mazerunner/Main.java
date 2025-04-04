@@ -23,7 +23,7 @@ public class Main {
             if (command_line.hasOption("i")) {
                 String maze_file_path = command_line.getOptionValue("i");
                 logger.info("Maze file path provided: " + maze_file_path);
-                GenerateMaze maze = new GenerateMaze(maze_file_path);
+                GenerateMaze maze = GenerateMaze.getInstance(maze_file_path);
 
                 if (command_line.hasOption("p")) {
                     String user_path = command_line.getOptionValue("p");

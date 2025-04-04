@@ -13,7 +13,7 @@ class UserPathVerifierTest {
 
     @Test
     void testVerifyValidPath() throws Exception {
-        GenerateMaze maze = new GenerateMaze(filePath.toString());
+        GenerateMaze maze = GenerateMaze.getInstance(filePath.toString());
         UserPathVerifier verifier = new UserPathVerifier(maze);
         
         String validPath = "FFFF";
@@ -23,7 +23,7 @@ class UserPathVerifierTest {
 
     @Test
     void testVerifyInvalidPath() throws Exception {
-        GenerateMaze maze = new GenerateMaze(filePath.toString());
+        GenerateMaze maze = GenerateMaze.getInstance(filePath.toString());
         UserPathVerifier verifier = new UserPathVerifier(maze);
         
         String invalidPath = "FFFRRR";

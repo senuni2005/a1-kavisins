@@ -12,7 +12,7 @@ class InitializePlayerTest {
 
     @Test
     void testSetInitialDirection() throws Exception {
-        GenerateMaze maze = new GenerateMaze(filePath.toString());        
+        GenerateMaze maze = GenerateMaze.getInstance(filePath.toString());
         InitializePlayer player = new InitializePlayer(maze);
         int direction = player.setInitialDirection();
         assertEquals(1, direction, "Initial direction should be East when entry is on the left border.");
