@@ -49,6 +49,10 @@ public class GenerateMaze {
         return instance;
     }
 
+    public static void resetInstance() {
+        instance = null;
+    }
+
     public int[][] getMaze() {
         return maze;
     }
