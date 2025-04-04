@@ -2,7 +2,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-class ResultFormatter {
+public class ResultFormatter {
     private static final Logger logger = LogManager.getLogger(ResultFormatter.class);
 
     public String factorizePath(String path) {

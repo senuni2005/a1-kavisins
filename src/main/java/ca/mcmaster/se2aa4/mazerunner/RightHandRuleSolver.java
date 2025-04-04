@@ -3,7 +3,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // Implementation of the right hand rule algorithm to solve the maze
-class RightHandRuleSolver implements MazeSolver {
+public class RightHandRuleSolver implements MazeSolver {
     private static final Logger logger = LogManager.getLogger(RightHandRuleSolver.class);
     private static final String[] DIRECTIONS = {"N", "E", "S", "W"};
     private int direction;

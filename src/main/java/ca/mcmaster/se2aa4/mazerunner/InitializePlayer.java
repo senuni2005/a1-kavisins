@@ -3,7 +3,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // Initalize the player's start direction
-class InitializePlayer {
+public class InitializePlayer {
     private static final Logger logger = LogManager.getLogger(InitializePlayer.class);
     private final GenerateMaze maze;
 

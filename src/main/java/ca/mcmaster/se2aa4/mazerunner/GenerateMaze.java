@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // Convert maze into 2D int array for easier comparison and locate entry and exit index
-class GenerateMaze {
+public class GenerateMaze {
     private static final Logger logger = LogManager.getLogger(GenerateMaze.class);
     private final int[][] maze;
     private int entry_row, entry_col;
@@ -46,23 +46,23 @@ class GenerateMaze {
         logger.info("Maze generation completed.");
     }
 
-    protected int[][] getMaze() {
+    public int[][] getMaze() {
         return maze;
     }
 
-    protected int getEntryRow() {
+    public int getEntryRow() {
         return entry_row;
     }
 
-    protected int getEntryCol() {
+    public int getEntryCol() {
         return entry_col;
     }
 
-    protected int getExitRow() {
+    public int getExitRow() {
         return exit_row;
     }
 
-    protected int getExitCol() {
+    public int getExitCol() {
         return exit_col;
     }
 }

@@ -1,5 +1,5 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-interface MazeSolver {
+public interface MazeSolver {
     String solveMaze();
 }
